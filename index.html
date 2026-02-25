@@ -1,1446 +1,1717 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LUNA COSMETICS | Modern Beauty Store</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #07070a;
-      --panel: rgba(18, 18, 24, 0.72);
-      --panel-solid: #121218;
-      --text: #f4f4f7;
-      --muted: #b8b8c7;
-      --line: rgba(255, 255, 255, 0.12);
-      --accent: #ff6d8b;
-      --accent-2: #ffd166;
-      --accent-3: #65d6ff;
-      --radius-lg: 26px;
-      --radius-md: 16px;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: "Manrope", sans-serif;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(255, 109, 139, 0.25), transparent 34%),
-        radial-gradient(circle at 80% 18%, rgba(101, 214, 255, 0.22), transparent 28%),
-        radial-gradient(circle at 45% 85%, rgba(255, 209, 102, 0.16), transparent 30%),
-        var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.4;
-      overflow-x: hidden;
-    }
-
-    .ambient-shape {
-      position: fixed;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      filter: blur(60px);
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.5;
-      animation: drift 10s ease-in-out infinite;
-    }
-
-    .ambient-shape.one {
-      background: rgba(255, 109, 139, 0.45);
-      top: -80px;
-      left: -100px;
-    }
-
-    .ambient-shape.two {
-      background: rgba(101, 214, 255, 0.4);
-      bottom: -120px;
-      right: -80px;
-      animation-delay: -2.5s;
-    }
-
-    @keyframes drift {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(-18px) scale(1.05);
-      }
-    }
-
-    .page {
-      width: min(1160px, 92vw);
-      margin: 28px auto 52px;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      padding: 16px 22px;
-      border-radius: 999px;
-      backdrop-filter: blur(14px);
-      position: sticky;
-      top: 16px;
-      z-index: 20;
-    }
-
-    .brand {
-      font-family: "Syne", sans-serif;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      font-size: 1.05rem;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.94rem;
-      transition: color 180ms ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .cart-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 12px;
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.04);
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-family: inherit;
-      text-decoration: none;
-      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .cart-pill:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.36);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-actions {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .profile-link {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.04);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      text-decoration: none;
-      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .profile-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.36);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .profile-link svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .theme-toggle {
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 12px;
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.04);
-      font-weight: 700;
-      font-size: 0.86rem;
-      cursor: pointer;
-      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .theme-toggle:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.36);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .menu-toggle {
-      display: none;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.04);
-      cursor: pointer;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      flex-direction: column;
-      padding: 0;
-      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .menu-toggle:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.36);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .menu-toggle span {
-      display: block;
-      width: 18px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 999px;
-      transition: transform 180ms ease, opacity 180ms ease;
-    }
-
-    .menu-toggle.open span:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-
-    .menu-toggle.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-toggle.open span:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
-    }
-
-    .mobile-menu {
-      display: none;
-    }
-
-    .mobile-menu a {
-      text-decoration: none;
-      color: var(--text);
-      font-weight: 700;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 11px 12px;
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .hero {
-      margin-top: 24px;
-      border: 1px solid var(--line);
-      background: linear-gradient(130deg, rgba(255, 109, 139, 0.17), rgba(14, 14, 18, 0.72) 45%, rgba(101, 214, 255, 0.12));
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-    }
-
-    .hero-content {
-      padding: 56px 52px;
-    }
-
-    .hero-kicker {
-      display: inline-block;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 0.77rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    h1,
-    h2,
-    h3 {
-      font-family: "Syne", sans-serif;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 4.7vw, 4rem);
-      max-width: 15ch;
-      margin-bottom: 14px;
-    }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 46ch;
-      margin-bottom: 26px;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 12px 20px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.03);
-    }
-
-    .btn-primary {
-      background: linear-gradient(100deg, var(--accent), #ff8fab);
-      color: #1a0f13;
-      box-shadow: 0 12px 30px rgba(255, 109, 139, 0.4);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .hero-media {
-      min-height: 340px;
-      background: url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
-      position: relative;
-    }
-
-    .promo-box {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      right: 16px;
-      background: rgba(7, 7, 10, 0.72);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      backdrop-filter: blur(10px);
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .promo-box strong {
-      font-size: 0.98rem;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .countdown {
-      display: flex;
-      gap: 8px;
-    }
-
-    .time-pill {
-      min-width: 58px;
-      text-align: center;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 8px 7px;
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    .time-pill b {
-      display: block;
-      font-size: 1rem;
-    }
-
-    .time-pill span {
-      font-size: 0.67rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-    }
-
-    .section {
-      margin-top: 34px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      padding: 34px;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .section-head h2 {
-      font-size: clamp(1.4rem, 2.7vw, 2.2rem);
-    }
-
-    .section-head p {
-      color: var(--muted);
-      max-width: 54ch;
-    }
-
-    .chips {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .chip {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.02);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 8px 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
-    }
-
-    .chip.active,
-    .chip:hover {
-      border-color: rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-1px);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .product-card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      background: var(--panel-solid);
-      display: flex;
-      flex-direction: column;
-      transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
-    }
-
-    .product-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(255, 255, 255, 0.34);
-      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 192px;
-      object-fit: cover;
-      transition: transform 280ms ease;
-    }
-
-    .product-card:hover img {
-      transform: scale(1.05);
-    }
-
-    .product-body {
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .label {
-      display: inline-block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #e5e5ef;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 999px;
-      padding: 4px 8px;
-      width: fit-content;
-    }
-
-    .product-title {
-      font-size: 1.03rem;
-      font-weight: 700;
-    }
-
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .price {
-      color: var(--accent-2);
-      font-weight: 800;
-      font-size: 1rem;
-    }
-
-    .add-btn {
-      width: 100%;
-      background: rgba(255, 109, 139, 0.14);
-      color: #ffdce4;
-      border: 1px solid rgba(255, 109, 139, 0.4);
-      border-radius: 11px;
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .add-btn:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 109, 139, 0.65);
-      background: rgba(255, 109, 139, 0.24);
-    }
-
-    .card-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .view-btn {
-      width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text);
-      border: 1px solid var(--line);
-      border-radius: 11px;
-      padding: 10px 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .view-btn:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.4);
-      background: rgba(255, 255, 255, 0.09);
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .info-card {
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.02);
-      padding: 18px;
-    }
-
-    .info-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-    }
-
-    .info-card p {
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .newsletter {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .newsletter input {
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.03);
-      padding: 12px 14px;
-      color: var(--text);
-      outline: none;
-    }
-
-    .footer-note {
-      margin-top: 16px;
-      font-size: 0.86rem;
-      color: var(--muted);
-    }
-
-    .site-footer {
-      margin-top: 34px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-lg);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(14px);
-      padding: 30px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr;
-      gap: 22px;
-    }
-
-    .footer-brand h3 {
-      font-size: 1.35rem;
-      margin-bottom: 10px;
-    }
-
-    .footer-brand p {
-      color: var(--muted);
-      max-width: 34ch;
-      margin-bottom: 14px;
-    }
-
-    .social-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .social-link {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.03);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-      transition: transform 160ms ease, background 160ms ease;
-    }
-
-    .social-link:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 109, 139, 0.16);
-    }
-
-    .social-link svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    .footer-title {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      margin-bottom: 9px;
-    }
-
-    .footer-block p,
-    .footer-block a {
-      color: var(--text);
-      text-decoration: none;
-      line-height: 1.7;
-      display: block;
-    }
-
-    .footer-block a:hover {
-      color: var(--accent);
-    }
-
-    .footer-bottom {
-      margin-top: 20px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 0.86rem;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 5, 8, 0.72);
-      display: grid;
-      place-items: center;
-      z-index: 60;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 180ms ease;
-      padding: 16px;
-    }
-
-    .modal.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      width: min(940px, 100%);
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background: #0f1015;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow: hidden;
-      transform: translateY(12px) scale(0.98);
-      transition: transform 200ms ease;
-    }
-
-    .modal.show .modal-card {
-      transform: translateY(0) scale(1);
-    }
-
-    .modal-media img {
-      width: 100%;
-      height: 100%;
-      min-height: 320px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .modal-body {
-      padding: 22px;
-      display: grid;
-      gap: 12px;
-      align-content: start;
-    }
-
-    .modal-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .close-btn {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-      border-radius: 10px;
-      padding: 8px 10px;
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    .modal-title {
-      font-size: clamp(1.35rem, 2.7vw, 2rem);
-    }
-
-    .modal-copy {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .list {
-      display: grid;
-      gap: 8px;
-      color: #e8e8ef;
-      font-size: 0.94rem;
-    }
-
-    .list p {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 8px 10px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .modal-price {
-      font-size: 1.15rem;
-      color: var(--accent-2);
-      font-weight: 800;
-    }
-
-    .cart-drawer {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(430px, 100vw);
-      height: 100vh;
-      border-left: 1px solid var(--line);
-      background: #101117;
-      box-shadow: var(--shadow);
-      z-index: 70;
-      transform: translateX(100%);
-      transition: transform 220ms ease;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-    }
-
-    .cart-drawer.show {
-      transform: translateX(0);
-    }
-
-    .cart-head {
-      padding: 18px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .cart-body {
-      overflow-y: auto;
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-      align-content: start;
-    }
-
-    .cart-item {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 12px;
-      padding: 12px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .cart-item-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .qty-row {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .qty-btn {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.04);
-      color: var(--text);
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    .remove-link {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 0.83rem;
-      justify-self: start;
-    }
-
-    .cart-foot {
-      border-top: 1px solid var(--line);
-      padding: 14px;
-      display: grid;
-      gap: 10px;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .cart-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      color: var(--text);
-      font-weight: 700;
-    }
-
-    .cart-message {
-      color: var(--muted);
-      font-size: 0.84rem;
-      min-height: 1.2em;
-    }
-
-    .empty-cart {
-      color: var(--muted);
-      text-align: center;
-      border: 1px dashed var(--line);
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    body.modal-open {
-      overflow: hidden;
-    }
-
-    body.light-theme {
-      --bg: #f4f0ec;
-      --panel: rgba(255, 255, 255, 0.74);
-      --panel-solid: #fff8f2;
-      --text: #231c1f;
-      --muted: #6d5c66;
-      --line: rgba(35, 28, 31, 0.16);
-      --shadow: 0 18px 40px rgba(74, 44, 55, 0.18);
-      background:
-        radial-gradient(circle at 15% 10%, rgba(255, 109, 139, 0.22), transparent 34%),
-        radial-gradient(circle at 80% 18%, rgba(101, 214, 255, 0.2), transparent 28%),
-        radial-gradient(circle at 45% 85%, rgba(255, 209, 102, 0.24), transparent 30%),
-        var(--bg);
-    }
-
-    body.light-theme .hero {
-      background: linear-gradient(130deg, rgba(255, 109, 139, 0.22), rgba(255, 255, 255, 0.66) 46%, rgba(101, 214, 255, 0.2));
-    }
-
-    body.light-theme .promo-box,
-    body.light-theme .modal {
-      background: rgba(255, 248, 242, 0.76);
-    }
-
-    body.light-theme .hero-kicker {
-      border-color: rgba(35, 28, 31, 0.2);
-    }
-
-    body.light-theme .add-btn {
-      background: rgba(255, 109, 139, 0.18);
-      color: #5f1c2f;
-    }
-
-    body.light-theme .modal-card {
-      background: var(--panel-solid);
-    }
-
-    body.light-theme .cart-drawer {
-      background: var(--panel-solid);
-    }
-
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(24px) scale(0.99);
-      transition:
-        opacity 580ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 580ms cubic-bezier(0.22, 1, 0.36, 1);
-      transition-delay: var(--reveal-delay, 0ms);
-      will-change: opacity, transform;
-    }
-
-    .reveal-item.is-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    @media (max-width: 1020px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-media {
-        min-height: 300px;
-      }
-
-      .product-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        width: min(96vw, 1160px);
-      }
-
-      .nav {
-        border-radius: 18px;
-        padding: 14px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .mobile-menu {
-        display: grid;
-        gap: 10px;
-        margin-top: 10px;
-        padding: 12px;
-        border: 1px solid var(--line);
-        border-radius: 16px;
-        background: var(--panel);
-        backdrop-filter: blur(10px);
-        max-height: 0;
-        overflow: hidden;
-        opacity: 0;
-        pointer-events: none;
-        transition: max-height 220ms ease, opacity 180ms ease;
-      }
-
-      .mobile-menu.show {
-        max-height: 260px;
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .theme-toggle {
-        padding: 8px 10px;
-        font-size: 0.8rem;
-      }
-
-      .hero-content,
-      .section,
-      .site-footer {
-        padding: 22px;
-      }
-
-      .promo-box {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .newsletter {
-        grid-template-columns: 1fr;
-      }
-
-      .modal-card {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="ambient-shape one"></div>
-  <div class="ambient-shape two"></div>
-
-  <main class="page">
-    <nav class="nav">
-      <a href="#" class="brand">LUNA COSMETICS</a>
-      <div class="nav-links">
-        <a href="#collection">Collection</a>
-        <a href="#ritual">Ritual</a>
-        <a href="#journal">Journal</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUNA COSMETICS | Modern Beauty Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+          :root {
+            --bg: #07070a;
+            --panel: rgba(18, 18, 24, 0.72);
+            --panel-solid: #121218;
+            --text: #f4f4f7;
+            --muted: #b8b8c7;
+            --line: rgba(255, 255, 255, 0.12);
+            --accent: #ff6d8b;
+            --accent-2: #ffd166;
+            --accent-3: #65d6ff;
+            --radius-lg: 26px;
+            --radius-md: 16px;
+            --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+          }
+
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+          html {
+            scroll-behavior: smooth;
+          }
+
+          body {
+            font-family: "Manrope", sans-serif;
+            background:
+              radial-gradient(circle at 15% 10%, rgba(255, 109, 139, 0.25), transparent 34%),
+              radial-gradient(circle at 80% 18%, rgba(101, 214, 255, 0.22), transparent 28%),
+              radial-gradient(circle at 45% 85%, rgba(255, 209, 102, 0.16), transparent 30%),
+              var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.4;
+            overflow-x: hidden;
+          }
+
+          .ambient-shape {
+            position: fixed;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.5;
+            animation: drift 10s ease-in-out infinite;
+          }
+
+          .ambient-shape.one {
+            background: rgba(255, 109, 139, 0.45);
+            top: -80px;
+            left: -100px;
+          }
+
+          .ambient-shape.two {
+            background: rgba(101, 214, 255, 0.4);
+            bottom: -120px;
+            right: -80px;
+            animation-delay: -2.5s;
+          }
+
+          @keyframes drift {
+            0%, 100% {
+              transform: translateY(0) scale(1);
+            }
+            50% {
+              transform: translateY(-18px) scale(1.05);
+            }
+          }
+
+          .page {
+            width: min(1160px, 92vw);
+            margin: 28px auto 52px;
+          }
+
+          .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            box-shadow: var(--shadow);
+            padding: 16px 22px;
+            border-radius: 999px;
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 16px;
+            z-index: 20;
+          }
+
+          .brand {
+            font-family: "Syne", sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            font-size: 1.05rem;
+            color: var(--text);
+            text-decoration: none;
+          }
+
+          .nav-links {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+          }
+
+          .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.94rem;
+            transition: color 180ms ease;
+            position: relative;
+          }
+       .nav-links a::after{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        height: 2px;
+        background-color:var(--accent);
+        border-radius: 10%;
+        width: 0;
+        border: none;
+      transition: 0.3s ease;
+       }
+        .nav-links a:hover{
+        color: var(--text);
+        }
+          .nav-links a:hover::after {
+
+            width: 100%;
+          }
+
+          .cart-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 12px;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer
+            font-family: inherit;
+            text-decoration: none;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+          }
+
+          .cart-pill:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.36);
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          .nav-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .profile-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+          }
+
+          .profile-link:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.36);
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          .profile-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+          }
+
+          .theme-toggle {
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            padding: 8px 12px;
+            color: var(--text);
+            background: rgba(255, 255, 255, 0.04);
+            font-weight: 700;
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+          }
+
+          .theme-toggle:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.36);
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          .menu-toggle {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex-direction: column;
+            padding: 0;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+          }
+
+          .menu-toggle:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.36);
+            background: rgba(255, 255, 255, 0.1);
+          }
+
+          .menu-toggle span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 999px;
+            transition: transform 180ms ease, opacity 180ms ease;
+          }
+
+          .menu-toggle.open span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+          }
+
+          .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+          }
+
+          .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+          }
+
+          .mobile-menu {
+            display: none;
+        position: fixed;
+        right: 0;
+          z-index: 1000;
+          }
+
+          .mobile-menu-links {
+            display: grid;
+            gap: 10px;
+          }
+
+          .mobile-menu a,
+          .mobile-menu button {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 700;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 11px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            width: 100%;
+            font-size: 0.94rem;
+          }
+
+          .mobile-menu button {
+            font-family: inherit;
+            cursor: pointer;
+            text-align: left;
+          }
+
+          .mobile-menu-tools {
+            margin-top: 4px;
+            padding-top: 12px;
+            border-top: 1px solid var(--line);
+            display: grid;
+            gap: 10px;
+          }
+
+          .mobile-cart {
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .mobile-cart-count {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.08);
+            font-size: 0.86rem;
+          }
+
+          .hero {
+            margin-top: 24px;
+            border: 1px solid var(--line);
+            background: linear-gradient(130deg, rgba(255, 109, 139, 0.17), rgba(14, 14, 18, 0.72) 45%, rgba(101, 214, 255, 0.12));
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+          }
+
+          .hero-content {
+            padding: 56px 52px;
+          }
+
+          .hero-kicker {
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 999px;
+            padding: 8px 14px;
+            font-size: 0.77rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+          }
+
+          h1,
+          h2,
+          h3 {
+            font-family: "Syne", sans-serif;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+          }
+
+          .hero h1 {
+            font-size: clamp(2rem, 4.7vw, 4rem);
+            max-width: 15ch;
+            margin-bottom: 14px;
+          }
+
+          .hero p {
+            color: var(--muted);
+            max-width: 46ch;
+            margin-bottom: 26px;
+          }
+
+          .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+          }
+
+          .btn {
+            border: none;
+            border-radius: 999px;
+            padding: 12px 20px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+          }
+
+          .btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.03);
+          }
+
+          .btn-primary {
+            background: linear-gradient(100deg, var(--accent), #ff8fab);
+            color: #1a0f13;
+            box-shadow: 0 12px 30px rgba(255, 109, 139, 0.4);
+          }
+
+          .btn-secondary {
+            color: var(--text);
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+          }
+
+          .hero-media {
+            min-height: 340px;
+            background: url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80") center/cover no-repeat;
+            position: relative;
+          }
+
+          .promo-box {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: rgba(7, 7, 10, 0.72);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            backdrop-filter: blur(10px);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+          }
+
+          .promo-box strong {
+            font-size: 0.98rem;
+            display: block;
+            margin-bottom: 4px;
+          }
+
+          .countdown {
+            display: flex;
+            gap: 8px;
+          }
+
+          .time-pill {
+            min-width: 58px;
+            text-align: center;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 8px 7px;
+            background: rgba(255, 255, 255, 0.03);
+          }
+
+          .time-pill b {
+            display: block;
+            font-size: 1rem;
+          }
+
+          .time-pill span {
+            font-size: 0.67rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+          }
+
+          .section {
+            margin-top: 34px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+            padding: 34px;
+          }
+
+          .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+          }
+
+          .section-head h2 {
+            font-size: clamp(1.4rem, 2.7vw, 2.2rem);
+          }
+
+          .section-head p {
+            color: var(--muted);
+            max-width: 54ch;
+          }
+
+          .chips {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+          }
+
+          .chip {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 8px 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 200ms ease, border-color 200ms ease, transform 200ms ease;
+          }
+
+          .chip.active,
+          .chip:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-1px);
+          }
+
+          .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+          }
+
+          .product-card {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--panel-solid);
+            display: flex;
+            flex-direction: column;
+            transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+          }
+
+          .product-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.34);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.26);
+          }
+
+          .product-card img {
+            width: 100%;
+            height: 192px;
+            object-fit: cover;
+            transition: transform 280ms ease;
+          }
+
+          .product-card:hover img {
+            transform: scale(1.05);
+          }
+
+          .product-body {
+            padding: 14px;
+            display: grid;
+            gap: 10px;
+            flex: 1;
+          }
+
+          .label {
+            display: inline-block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #e5e5ef;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            padding: 4px 8px;
+            width: fit-content;
+          }
+
+          .product-title {
+            font-size: 1.03rem;
+            font-weight: 700;
+          }
+
+          .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 0.9rem;
+          }
+
+          .price {
+            color: var(--accent-2);
+            font-weight: 800;
+            font-size: 1rem;
+          }
+
+          .add-btn {
+            width: 100%;
+            background: rgba(255, 109, 139, 0.14);
+            color: #ffdce4;
+            border: 1px solid rgba(255, 109, 139, 0.4);
+            border-radius: 11px;
+            padding: 10px 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+          }
+
+          .add-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 109, 139, 0.65);
+            background: rgba(255, 109, 139, 0.24);
+          }
+
+          .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+          }
+
+          .view-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            padding: 10px 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+          }
+
+          .view-btn:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.09);
+          }
+
+          .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+          }
+
+          .info-card {
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 18px;
+          }
+
+          .info-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+          }
+
+          .info-card p {
+            color: var(--muted);
+            font-size: 0.94rem;
+          }
+
+          .newsletter {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin-top: 20px;
+          }
+
+          .newsletter input {
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 14px;
+            color: var(--text);
+            outline: none;
+          }
+
+          .footer-note {
+            margin-top: 16px;
+            font-size: 0.86rem;
+            color: var(--muted);
+          }
+
+          .site-footer {
+            margin-top: 34px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-lg);
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+            padding: 30px;
+          }
+
+          .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr;
+            gap: 22px;
+          }
+
+          .footer-brand h3 {
+            font-size: 1.35rem;
+            margin-bottom: 10px;
+          }
+
+          .footer-brand p {
+            color: var(--muted);
+            max-width: 34ch;
+            margin-bottom: 14px;
+          }
+
+          .social-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+          }
+
+          .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.03);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            transition: transform 160ms ease, background 160ms ease;
+          }
+
+          .social-link:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 109, 139, 0.16);
+          }
+
+          .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+          }
+
+          .footer-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 9px;
+          }
+
+          .footer-block p,
+          .footer-block a {
+            color: var(--text);
+            text-decoration: none;
+            line-height: 1.7;
+            display: block;
+          }
+
+          .footer-block a:hover {
+            color: var(--accent);
+          }
+
+          .footer-bottom {
+            margin-top: 20px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.86rem;
+          }
+
+          .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 8, 0.72);
+            display: grid;
+            place-items: center;
+            z-index: 60;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 180ms ease;
+            padding: 16px;
+          }
+
+          .modal.show {
+            opacity: 1;
+            pointer-events: auto;
+          }
+
+          .modal-card {
+            width: min(940px, 100%);
+            border-radius: 22px;
+            border: 1px solid var(--line);
+            background: #0f1015;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            transform: translateY(12px) scale(0.98);
+            transition: transform 200ms ease;
+          }
+
+          .modal.show .modal-card {
+            transform: translateY(0) scale(1);
+          }
+
+          .modal-media img {
+            width: 100%;
+            height: 100%;
+            min-height: 320px;
+            object-fit: cover;
+            display: block;
+          }
+
+          .modal-body {
+            padding: 22px;
+            display: grid;
+            gap: 12px;
+            align-content: start;
+          }
+
+          .modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+          }
+
+          .close-btn {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            border-radius: 10px;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-weight: 700;
+          }
+
+          .modal-title {
+            font-size: clamp(1.35rem, 2.7vw, 2rem);
+          }
+
+          .modal-copy {
+            color: var(--muted);
+            font-size: 0.95rem;
+          }
+
+          .list {
+            display: grid;
+            gap: 8px;
+            color: #e8e8ef;
+            font-size: 0.94rem;
+          }
+
+          .list p {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.02);
+          }
+
+          .modal-price {
+            font-size: 1.15rem;
+            color: var(--accent-2);
+            font-weight: 800;
+          }
+
+          .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(430px, 100vw);
+            height: 100vh;
+            border-left: 1px solid var(--line);
+            background: #101117;
+            box-shadow: var(--shadow);
+            z-index: 70;
+            transform: translateX(100%);
+            transition: transform 220ms ease;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+          }
+
+          .cart-drawer.show {
+            transform: translateX(0);
+          }
+
+          .cart-head {
+            padding: 18px;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .cart-body {
+            overflow-y: auto;
+            padding: 14px;
+            display: grid;
+            gap: 10px;
+            align-content: start;
+          }
+
+          .cart-item {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 12px;
+            display: grid;
+            gap: 8px;
+          }
+
+          .cart-item-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            align-items: center;
+          }
+
+          .qty-row {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .qty-btn {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            cursor: pointer;
+          }
+
+          .remove-link {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.83rem;
+            justify-self: start;
+          }
+
+          .cart-foot {
+            border-top: 1px solid var(--line);
+            padding: 14px;
+            display: grid;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+          }
+
+          .cart-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-weight: 700;
+          }
+
+          .cart-message {
+            color: var(--muted);
+            font-size: 0.84rem;
+            min-height: 1.2em;
+          }
+
+          .empty-cart {
+            color: var(--muted);
+            text-align: center;
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+            padding: 16px;
+          }
+
+          body.modal-open {
+            overflow: hidden;
+          }
+
+          body.light-theme {
+            --bg: #f4f0ec;
+            --panel: rgba(255, 255, 255, 0.74);
+            --panel-solid: #fff8f2;
+            --text: #231c1f;
+            --muted: #6d5c66;
+            --line: rgba(35, 28, 31, 0.16);
+            --shadow: 0 18px 40px rgba(74, 44, 55, 0.18);
+            background:
+              radial-gradient(circle at 15% 10%, rgba(255, 109, 139, 0.22), transparent 34%),
+              radial-gradient(circle at 80% 18%, rgba(101, 214, 255, 0.2), transparent 28%),
+              radial-gradient(circle at 45% 85%, rgba(255, 209, 102, 0.24), transparent 30%),
+              var(--bg);
+          }
+
+          body.light-theme .hero {
+            background: linear-gradient(130deg, rgba(255, 109, 139, 0.22), rgba(255, 255, 255, 0.66) 46%, rgba(101, 214, 255, 0.2));
+          }
+
+          body.light-theme .promo-box,
+          body.light-theme .modal {
+            background: rgba(255, 248, 242, 0.76);
+          }
+
+          body.light-theme .hero-kicker {
+            border-color: rgba(35, 28, 31, 0.2);
+          }
+
+          body.light-theme .add-btn {
+            background: rgba(255, 109, 139, 0.18);
+            color: #5f1c2f;
+          }
+
+          body.light-theme .modal-card {
+            background: var(--panel-solid);
+          }
+
+          body.light-theme .cart-drawer {
+            background: var(--panel-solid);
+          }
+
+          .reveal-item {
+            opacity: 0;
+            transform: translateY(24px) scale(0.99);
+            transition:
+              opacity 580ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 580ms cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: opacity, transform;
+          }
+
+          .reveal-item.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+
+          @media (max-width: 1020px) {
+            .hero {
+              grid-template-columns: 1fr;
+            }
+
+            .hero-media {
+              min-height: 300px;
+            }
+
+            .product-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .info-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+              grid-template-columns: 1fr;
+            }
+          }
+
+          @media (max-width: 640px) {
+            .page {
+              width: min(96vw, 1160px);
+            }
+
+            .nav {
+              border-radius: 18px;
+              padding: 14px;
+            }
+
+            .nav-links {
+              display: none;
+            }
+
+            .profile-link,
+            .theme-toggle,
+            .cart-pill {
+              display: none;
+            }
+
+            .nav-actions {
+              margin-left: auto;
+            }
+
+            .menu-toggle {
+              display: inline-flex;
+            }
+
+            .mobile-menu {
+              display: grid;
+              gap: 10px;
+              margin-top: 10px;
+              padding: 12px;
+              border: 1px solid var(--line);
+              border-radius: 16px;
+              background: var(--panel);
+              backdrop-filter: blur(10px);
+              max-height: 0;
+              overflow: hidden;
+              opacity: 0;
+              pointer-events: none;
+              transition: max-height 220ms ease, opacity 180ms ease;
+            }
+
+            .mobile-menu.show {
+              max-height: 420px;
+              opacity: 1;
+              pointer-events: auto;
+            }
+
+            .hero-content,
+            .section,
+            .site-footer {
+              padding: 22px;
+            }
+
+            .promo-box {
+              flex-direction: column;
+              align-items: flex-start;
+            }
+
+            .product-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .newsletter {
+              grid-template-columns: 1fr;
+            }
+
+            .modal-card {
+              grid-template-columns: 1fr;
+            }
+          }
+    </style>
+  </head>
+  <body>
+    <div class="ambient-shape one"></div>
+    <div class="ambient-shape two"></div>
+
+    <main class="page">
+      <nav class="nav">
+        <a href="#" class="brand">LUNA COSMETICS</a>
+        <div class="nav-links">
+          <a href="#collection">Collection</a>
+          <a href="#ritual">Ritual</a>
+          <a href="#journal">Journal</a>
+        </div>
+        <div class="nav-actions">
+          <a
+            class="profile-link"
+            href="profile.html"
+            aria-label="Customer profile"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"
+              />
+            </svg>
+          </a>
+          <button
+            class="theme-toggle"
+            id="themeToggleBtn"
+            type="button"
+            aria-pressed="false"
+          >
+            Light Mode
+          </button>
+          <button
+            class="cart-pill"
+            id="cartButton"
+            type="button"
+            aria-live="polite"
+          >
+            Cart <span id="cartCount">0</span>
+          </button>
+          <button
+            class="menu-toggle"
+            id="menuToggleBtn"
+            type="button"
+            aria-label="Toggle mobile menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+      <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-links">
+          <a href="#collection">Collection</a>
+          <a href="#ritual">Ritual</a>
+          <a href="#journal">Journal</a>
+        </div>
+        <div class="mobile-menu-tools">
+          <a class="mobile-profile" href="profile.html">My Account</a>
+          <button
+            class="mobile-theme"
+            id="themeToggleBtnMobile"
+            type="button"
+            aria-pressed="false"
+          >
+            Light Mode
+          </button>
+          <button
+            class="mobile-cart"
+            id="cartButtonMobile"
+            type="button"
+            aria-live="polite"
+          >
+            Open Cart
+            <span class="mobile-cart-count" id="cartCountMobile">0</span>
+          </button>
+        </div>
       </div>
-      <div class="nav-actions">
-        <a class="profile-link" href="profile.html" aria-label="Customer profile">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5z"/></svg>
-        </a>
-        <button class="theme-toggle" id="themeToggleBtn" type="button" aria-pressed="false">Light Mode</button>
-        <button class="cart-pill" id="cartButton" type="button" aria-live="polite">Cart <span id="cartCount">0</span></button>
-        <button class="menu-toggle" id="menuToggleBtn" type="button" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobileMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </nav>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#collection">Collection</a>
-      <a href="#ritual">Ritual</a>
-      <a href="#journal">Journal</a>
-      <a href="profile.html">Account</a>
+
+      <section class="hero reveal-item" data-reveal>
+        <div class="hero-content">
+          <span class="hero-kicker">Vegan Beauty House</span>
+          <h1>Precision cosmetics for modern routines.</h1>
+          <p>
+            Explore high-performance skincare and makeup designed for reliable
+            results, long wear, and daily comfort.
+          </p>
+          <div class="hero-actions">
+            <button
+              class="btn btn-primary"
+              onclick="document.getElementById('collection').scrollIntoView()"
+            >
+              View Collection
+            </button>
+            <button class="btn btn-secondary">Consultation Quiz</button>
+          </div>
+        </div>
+        <div
+          class="hero-media"
+          role="img"
+          aria-label="Flatlay cosmetics with serum and blush."
+        >
+          <div class="promo-box">
+            <div>
+              <strong>Limited Offer: 25% Off Serum Line</strong>
+              <span style="color: var(--muted); font-size: 0.86rem"
+                >Offer ends in:</span
+              >
+            </div>
+            <div class="countdown" id="countdown"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section reveal-item" id="collection" data-reveal>
+        <div class="section-head">
+          <div>
+            <h2>Featured Collection</h2>
+            <p>
+              Filter by category and add products directly to cart. This section
+              is dynamically rendered with JavaScript.
+            </p>
+          </div>
+        </div>
+
+        <div class="chips" id="categoryChips"></div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+
+      <section class="section reveal-item" id="ritual" data-reveal>
+        <div class="section-head">
+          <div>
+            <h2>The LUNA Promise</h2>
+            <p>
+              Clean formulas, cruelty-free testing, and modern actives chosen
+              for visible results.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>Science + Nature</h3>
+            <p>
+              Each formula combines botanical extracts with proven actives like
+              peptides, niacinamide, and ceramides.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Dermatologist Reviewed</h3>
+            <p>
+              Our lineup is tested on sensitive skin and designed to layer
+              cleanly without pilling or heavy residue.
+            </p>
+          </article>
+          <article class="info-card" id="journal">
+            <h3>Join The Newsletter</h3>
+            <p>
+              Receive weekly guidance, product launches, and exclusive bundle
+              offers from our editorial team.
+            </p>
+            <form class="newsletter" onsubmit="return subscribe(event);">
+              <input
+                type="email"
+                id="emailInput"
+                placeholder="Email address"
+                required
+              />
+              <button class="btn btn-primary" type="submit">Subscribe</button>
+            </form>
+            <div class="footer-note" id="newsletterMessage">
+              We send concise updates. You can unsubscribe at any time.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <footer class="site-footer reveal-item" id="contact" data-reveal>
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <h3>LUNA COSMETICS</h3>
+            <p>
+              Modern skincare and makeup formulated for clean performance, daily
+              comfort, and consistent results.
+            </p>
+            <div class="social-row">
+              <a
+                class="social-link"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zm9.45 1.5a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="social-link"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6h1.5V4.8c-.3 0-1.1-.1-2.2-.1-2.2 0-3.8 1.3-3.8 3.9V11H8v3h2.7v8h2.8z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="social-link"
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M23 8.5a3.1 3.1 0 0 0-2.2-2.2C18.8 5.8 12 5.8 12 5.8s-6.8 0-8.8.5A3.1 3.1 0 0 0 1 8.5 32 32 0 0 0 .5 12c0 1.2.1 2.4.5 3.5a3.1 3.1 0 0 0 2.2 2.2c2 .5 8.8.5 8.8.5s6.8 0 8.8-.5a3.1 3.1 0 0 0 2.2-2.2c.3-1.1.5-2.3.5-3.5s-.2-2.4-.5-3.5zM10 15.1V8.9l5.4 3.1L10 15.1z"
+                  />
+                </svg>
+              </a>
+              <a
+                class="social-link"
+                href="https://tiktok.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M16.2 3c.4 1.7 1.4 3 2.8 3.8 1 .6 2 .9 3 .9v3c-1.8 0-3.6-.5-5.1-1.5v6.8a5.9 5.9 0 1 1-5.9-5.9c.5 0 .9.1 1.4.2v3.2a2.8 2.8 0 1 0 1.4 2.5V3h2.4z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-block">
+            <h4 class="footer-title">Contact</h4>
+            <a href="tel:+12025550144">+1 (202) 555-0144</a>
+            <a href="mailto:hello@lunacosmetics.com">hello@lunacosmetics.com</a>
+            <a href="#collection">Shop Collection</a>
+          </div>
+
+          <div class="footer-block">
+            <h4 class="footer-title">Studio Address</h4>
+            <p>LUNA Beauty Studio</p>
+            <p>245 Madison Ave</p>
+            <p>New York, NY 10016</p>
+            <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          &copy;2026 LUNA COSMETICS. All rights reserved.
+        </div>
+      </footer>
+    </main>
+
+    <div class="modal" id="cartOverlay" aria-hidden="true">
+      <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+        <header class="cart-head">
+          <h2 style="font-size: 1.2rem">Shopping Cart</h2>
+          <button class="close-btn" id="cartCloseBtn" type="button">
+            Close
+          </button>
+        </header>
+        <div class="cart-body" id="cartItemsWrap"></div>
+        <footer class="cart-foot">
+          <div class="cart-row">
+            <span>Subtotal</span>
+            <span id="cartSubtotal">$0.00</span>
+          </div>
+          <div class="cart-message" id="cartMessage">
+            Cart data is synchronized with your account profile.
+          </div>
+          <button class="btn btn-primary" id="checkoutBtn" type="button">
+            Checkout
+          </button>
+          <button class="btn btn-secondary" id="clearCartBtn" type="button">
+            Clear Cart Items
+          </button>
+        </footer>
+      </aside>
     </div>
 
-    <section class="hero reveal-item" data-reveal>
-      <div class="hero-content">
-        <span class="hero-kicker">Vegan Beauty House</span>
-        <h1>Precision cosmetics for modern routines.</h1>
-        <p>Explore high-performance skincare and makeup designed for reliable results, long wear, and daily comfort.</p>
-        <div class="hero-actions">
-          <button class="btn btn-primary" onclick="document.getElementById('collection').scrollIntoView()">View Collection</button>
-          <button class="btn btn-secondary">Consultation Quiz</button>
+    <div class="modal" id="quickViewModal" aria-hidden="true">
+      <article
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+      >
+        <div class="modal-media">
+          <img id="modalImage" src="" alt="" />
         </div>
-      </div>
-      <div class="hero-media" role="img" aria-label="Flatlay cosmetics with serum and blush.">
-        <div class="promo-box">
-          <div>
-            <strong>Limited Offer: 25% Off Serum Line</strong>
-            <span style="color: var(--muted); font-size: 0.86rem;">Offer ends in:</span>
+        <div class="modal-body">
+          <div class="modal-top">
+            <div>
+              <span class="label" id="modalCategory">Category</span>
+              <h2 class="modal-title" id="modalTitle">Product Name</h2>
+            </div>
+            <button
+              class="close-btn"
+              id="modalCloseBtn"
+              type="button"
+              aria-label="Close product details"
+            >
+              Close
+            </button>
           </div>
-          <div class="countdown" id="countdown"></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section reveal-item" id="collection" data-reveal>
-      <div class="section-head">
-        <div>
-          <h2>Featured Collection</h2>
-          <p>Filter by category and add products directly to cart. This section is dynamically rendered with JavaScript.</p>
-        </div>
-      </div>
-
-      <div class="chips" id="categoryChips"></div>
-      <div class="product-grid" id="productGrid"></div>
-    </section>
-
-    <section class="section reveal-item" id="ritual" data-reveal>
-      <div class="section-head">
-        <div>
-          <h2>The LUNA Promise</h2>
-          <p>Clean formulas, cruelty-free testing, and modern actives chosen for visible results.</p>
-        </div>
-      </div>
-
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Science + Nature</h3>
-          <p>Each formula combines botanical extracts with proven actives like peptides, niacinamide, and ceramides.</p>
-        </article>
-        <article class="info-card">
-          <h3>Dermatologist Reviewed</h3>
-          <p>Our lineup is tested on sensitive skin and designed to layer cleanly without pilling or heavy residue.</p>
-        </article>
-        <article class="info-card" id="journal">
-          <h3>Join The Newsletter</h3>
-          <p>Receive weekly guidance, product launches, and exclusive bundle offers from our editorial team.</p>
-          <form class="newsletter" onsubmit="return subscribe(event)">
-            <input type="email" id="emailInput" placeholder="Email address" required />
-            <button class="btn btn-primary" type="submit">Subscribe</button>
-          </form>
-          <div class="footer-note" id="newsletterMessage">We send concise updates. You can unsubscribe at any time.</div>
-        </article>
-      </div>
-    </section>
-
-    <footer class="site-footer reveal-item" id="contact" data-reveal>
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h3>LUNA COSMETICS</h3>
-          <p>Modern skincare and makeup formulated for clean performance, daily comfort, and consistent results.</p>
-          <div class="social-row">
-            <a class="social-link" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8zm9.45 1.5a1.05 1.05 0 1 1 0 2.1 1.05 1.05 0 0 1 0-2.1zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
-            </a>
-            <a class="social-link" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6h1.5V4.8c-.3 0-1.1-.1-2.2-.1-2.2 0-3.8 1.3-3.8 3.9V11H8v3h2.7v8h2.8z"/></svg>
-            </a>
-            <a class="social-link" href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 8.5a3.1 3.1 0 0 0-2.2-2.2C18.8 5.8 12 5.8 12 5.8s-6.8 0-8.8.5A3.1 3.1 0 0 0 1 8.5 32 32 0 0 0 .5 12c0 1.2.1 2.4.5 3.5a3.1 3.1 0 0 0 2.2 2.2c2 .5 8.8.5 8.8.5s6.8 0 8.8-.5a3.1 3.1 0 0 0 2.2-2.2c.3-1.1.5-2.3.5-3.5s-.2-2.4-.5-3.5zM10 15.1V8.9l5.4 3.1L10 15.1z"/></svg>
-            </a>
-            <a class="social-link" href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 3c.4 1.7 1.4 3 2.8 3.8 1 .6 2 .9 3 .9v3c-1.8 0-3.6-.5-5.1-1.5v6.8a5.9 5.9 0 1 1-5.9-5.9c.5 0 .9.1 1.4.2v3.2a2.8 2.8 0 1 0 1.4 2.5V3h2.4z"/></svg>
-            </a>
+          <p class="modal-copy" id="modalDescription"></p>
+          <div class="meta">
+            <span id="modalRating">Rating</span>
+            <span id="modalSize">Size</span>
+          </div>
+          <h3 style="font-size: 1rem">Key Benefits</h3>
+          <div class="list" id="modalBenefits"></div>
+          <h3 style="font-size: 1rem">Hero Ingredients</h3>
+          <div class="list" id="modalIngredients"></div>
+          <div class="meta">
+            <span class="modal-price" id="modalPrice">$0.00</span>
+            <button class="add-btn" id="modalAddBtn" type="button">
+              Add To Cart
+            </button>
           </div>
         </div>
+      </article>
+    </div>
 
-        <div class="footer-block">
-          <h4 class="footer-title">Contact</h4>
-          <a href="tel:+12025550144">+1 (202) 555-0144</a>
-          <a href="mailto:hello@lunacosmetics.com">hello@lunacosmetics.com</a>
-          <a href="#collection">Shop Collection</a>
-        </div>
+    <script>
+      // Persistent storage keys shared across store and account pages.
+      const CART_KEY = "luna-cart";
+      const ORDERS_KEY = "luna-orders";
+      const PROFILE_KEY = "luna-profile";
+      // Product catalog rendered in the storefront grid and product details modal.
+      const products = [
+        {
+          name: "Nebula Dew Serum",
+          category: "Skincare",
+          price: 42,
+          rating: 4.9,
+          image:
+            "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=900&q=80",
+          description:
+            "A lightweight serum that boosts hydration and bounce for a dewy, fresh finish.",
+          size: "30 ml",
+          benefits: [
+            "Hydrates deeply",
+            "Brightens dull tone",
+            "Layers under makeup",
+          ],
+          ingredients: ["Niacinamide", "Hyaluronic acid", "Green tea extract"],
+        },
+        {
+          name: "Solar Matte Tint",
+          category: "Makeup",
+          price: 28,
+          rating: 4.7,
+          image:
+            "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Soft-blur skin tint with breathable coverage and a smooth all-day matte look.",
+          size: "40 ml",
+          benefits: ["Evens complexion", "Controls shine", "No heavy feel"],
+          ingredients: ["Silica blend", "Squalane", "Vitamin E"],
+        },
+        {
+          name: "Halo Repair Mask",
+          category: "Skincare",
+          price: 35,
+          rating: 4.8,
+          image:
+            "https://images.unsplash.com/photo-1600428877878-1a0fd85beda3?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Overnight recovery mask that supports skin barrier repair and morning softness.",
+          size: "50 ml",
+          benefits: ["Repairs dryness", "Calms redness", "Improves texture"],
+          ingredients: ["Ceramides", "Panthenol", "Centella asiatica"],
+        },
+        {
+          name: "Aurora Lip Cloud",
+          category: "Lips",
+          price: 22,
+          rating: 4.6,
+          image:
+            "https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Airy whipped lip tint with high color payoff and a soft velvet finish.",
+          size: "6 ml",
+          benefits: ["Lightweight wear", "Rich pigment", "Comfortable finish"],
+          ingredients: ["Jojoba oil", "Fruit wax", "Vitamin C esters"],
+        },
+        {
+          name: "Comet Lash Lift",
+          category: "Eyes",
+          price: 19,
+          rating: 4.5,
+          image:
+            "https://images.unsplash.com/photo-1631214524020-0f99f6f0cd3f?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Lengthening mascara that defines lashes with a flexible, flake-resistant hold.",
+          size: "10 ml",
+          benefits: ["Adds visible length", "Separates lashes", "No clumping"],
+          ingredients: ["Rice bran wax", "Argan oil", "Peptide complex"],
+        },
+        {
+          name: "Moonmilk Clean Balm",
+          category: "Skincare",
+          price: 31,
+          rating: 4.8,
+          image:
+            "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Melting cleansing balm that dissolves sunscreen, makeup, and daily buildup fast.",
+          size: "90 g",
+          benefits: [
+            "Removes waterproof makeup",
+            "Rinses clean",
+            "Leaves skin soft",
+          ],
+          ingredients: ["Sunflower seed oil", "Oat extract", "Camellia oil"],
+        },
+        {
+          name: "Prism Blush Stick",
+          category: "Makeup",
+          price: 24,
+          rating: 4.7,
+          image:
+            "https://images.unsplash.com/photo-1525408612212-8c00be98828e?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Cream blush stick with buildable color and a natural satin glow.",
+          size: "8 g",
+          benefits: ["Easy blend", "Buildable intensity", "Travel friendly"],
+          ingredients: ["Shea butter", "Squalane", "Rosehip oil"],
+        },
+        {
+          name: "Starline Brow Fix",
+          category: "Eyes",
+          price: 17,
+          rating: 4.4,
+          image:
+            "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=900&q=80",
+          description:
+            "Clear brow gel that shapes and lifts each hair for a clean laminated look.",
+          size: "7 ml",
+          benefits: ["Strong hold", "No crunchy feel", "Natural finish"],
+          ingredients: ["Aloe vera", "Castor oil", "Film formers"],
+        },
+      ];
 
-        <div class="footer-block">
-          <h4 class="footer-title">Studio Address</h4>
-          <p>LUNA Beauty Studio</p>
-          <p>245 Madison Ave</p>
-          <p>New York, NY 10016</p>
-          <p>Mon - Sat: 9:00 AM - 7:00 PM</p>
-        </div>
-      </div>
-      <div class="footer-bottom">&copy;2026 LUNA COSMETICS. All rights reserved.</div>
-    </footer>
-  </main>
+      // DOM references: navigation, cart, modals, and product list containers.
+      const categories = [
+        "All",
+        ...new Set(products.map((item) => item.category)),
+      ];
+      const chipsWrap = document.getElementById("categoryChips");
+      const productGrid = document.getElementById("productGrid");
+      const cartButton = document.getElementById("cartButton");
+      const cartButtonMobile = document.getElementById("cartButtonMobile");
+      const cartCountEl = document.getElementById("cartCount");
+      const cartCountMobileEl = document.getElementById("cartCountMobile");
+      const cartOverlay = document.getElementById("cartOverlay");
+      const cartDrawer = document.getElementById("cartDrawer");
+      const cartItemsWrap = document.getElementById("cartItemsWrap");
+      const cartSubtotal = document.getElementById("cartSubtotal");
+      const cartMessage = document.getElementById("cartMessage");
+      const cartCloseBtn = document.getElementById("cartCloseBtn");
+      const checkoutBtn = document.getElementById("checkoutBtn");
+      const clearCartBtn = document.getElementById("clearCartBtn");
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      const themeToggleBtnMobile = document.getElementById(
+        "themeToggleBtnMobile",
+      );
+      const menuToggleBtn = document.getElementById("menuToggleBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+      const modal = document.getElementById("quickViewModal");
+      const modalImage = document.getElementById("modalImage");
+      const modalCategory = document.getElementById("modalCategory");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalDescription = document.getElementById("modalDescription");
+      const modalRating = document.getElementById("modalRating");
+      const modalSize = document.getElementById("modalSize");
+      const modalBenefits = document.getElementById("modalBenefits");
+      const modalIngredients = document.getElementById("modalIngredients");
+      const modalPrice = document.getElementById("modalPrice");
+      const modalAddBtn = document.getElementById("modalAddBtn");
+      const modalCloseBtn = document.getElementById("modalCloseBtn");
+      let revealObserver = null;
 
-  <div class="modal" id="cartOverlay" aria-hidden="true">
-    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
-      <header class="cart-head">
-        <h2 style="font-size:1.2rem;">Shopping Cart</h2>
-        <button class="close-btn" id="cartCloseBtn" type="button">Close</button>
-      </header>
-      <div class="cart-body" id="cartItemsWrap"></div>
-      <footer class="cart-foot">
-        <div class="cart-row">
-          <span>Subtotal</span>
-          <span id="cartSubtotal">$0.00</span>
-        </div>
-        <div class="cart-message" id="cartMessage">Cart data is synchronized with your account profile.</div>
-        <button class="btn btn-primary" id="checkoutBtn" type="button">Checkout</button>
-        <button class="btn btn-secondary" id="clearCartBtn" type="button">Clear Cart Items</button>
-      </footer>
-    </aside>
-  </div>
+      // Runtime state used to track filters, modal selection, and cart contents.
+      let activeCategory = "All";
+      let selectedProduct = null;
+      let cartItems = loadJSON(CART_KEY, []);
 
-  <div class="modal" id="quickViewModal" aria-hidden="true">
-    <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-media">
-        <img id="modalImage" src="" alt="" />
-      </div>
-      <div class="modal-body">
-        <div class="modal-top">
-          <div>
-            <span class="label" id="modalCategory">Category</span>
-            <h2 class="modal-title" id="modalTitle">Product Name</h2>
-          </div>
-          <button class="close-btn" id="modalCloseBtn" type="button" aria-label="Close product details">Close</button>
-        </div>
-        <p class="modal-copy" id="modalDescription"></p>
-        <div class="meta">
-          <span id="modalRating">Rating</span>
-          <span id="modalSize">Size</span>
-        </div>
-        <h3 style="font-size:1rem;">Key Benefits</h3>
-        <div class="list" id="modalBenefits"></div>
-        <h3 style="font-size:1rem;">Hero Ingredients</h3>
-        <div class="list" id="modalIngredients"></div>
-        <div class="meta">
-          <span class="modal-price" id="modalPrice">$0.00</span>
-          <button class="add-btn" id="modalAddBtn" type="button">Add To Cart</button>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <script>
-    // Persistent storage keys shared across store and account pages.
-    const CART_KEY = "luna-cart";
-    const ORDERS_KEY = "luna-orders";
-    const PROFILE_KEY = "luna-profile";
-    // Product catalog rendered in the storefront grid and product details modal.
-    const products = [
-      {
-        name: "Nebula Dew Serum",
-        category: "Skincare",
-        price: 42,
-        rating: 4.9,
-        image: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=900&q=80",
-        description: "A lightweight serum that boosts hydration and bounce for a dewy, fresh finish.",
-        size: "30 ml",
-        benefits: ["Hydrates deeply", "Brightens dull tone", "Layers under makeup"],
-        ingredients: ["Niacinamide", "Hyaluronic acid", "Green tea extract"]
-      },
-      {
-        name: "Solar Matte Tint",
-        category: "Makeup",
-        price: 28,
-        rating: 4.7,
-        image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=900&q=80",
-        description: "Soft-blur skin tint with breathable coverage and a smooth all-day matte look.",
-        size: "40 ml",
-        benefits: ["Evens complexion", "Controls shine", "No heavy feel"],
-        ingredients: ["Silica blend", "Squalane", "Vitamin E"]
-      },
-      {
-        name: "Halo Repair Mask",
-        category: "Skincare",
-        price: 35,
-        rating: 4.8,
-        image: "https://images.unsplash.com/photo-1600428877878-1a0fd85beda3?auto=format&fit=crop&w=900&q=80",
-        description: "Overnight recovery mask that supports skin barrier repair and morning softness.",
-        size: "50 ml",
-        benefits: ["Repairs dryness", "Calms redness", "Improves texture"],
-        ingredients: ["Ceramides", "Panthenol", "Centella asiatica"]
-      },
-      {
-        name: "Aurora Lip Cloud",
-        category: "Lips",
-        price: 22,
-        rating: 4.6,
-        image: "https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=900&q=80",
-        description: "Airy whipped lip tint with high color payoff and a soft velvet finish.",
-        size: "6 ml",
-        benefits: ["Lightweight wear", "Rich pigment", "Comfortable finish"],
-        ingredients: ["Jojoba oil", "Fruit wax", "Vitamin C esters"]
-      },
-      {
-        name: "Comet Lash Lift",
-        category: "Eyes",
-        price: 19,
-        rating: 4.5,
-        image: "https://images.unsplash.com/photo-1631214524020-0f99f6f0cd3f?auto=format&fit=crop&w=900&q=80",
-        description: "Lengthening mascara that defines lashes with a flexible, flake-resistant hold.",
-        size: "10 ml",
-        benefits: ["Adds visible length", "Separates lashes", "No clumping"],
-        ingredients: ["Rice bran wax", "Argan oil", "Peptide complex"]
-      },
-      {
-        name: "Moonmilk Clean Balm",
-        category: "Skincare",
-        price: 31,
-        rating: 4.8,
-        image: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?auto=format&fit=crop&w=900&q=80",
-        description: "Melting cleansing balm that dissolves sunscreen, makeup, and daily buildup fast.",
-        size: "90 g",
-        benefits: ["Removes waterproof makeup", "Rinses clean", "Leaves skin soft"],
-        ingredients: ["Sunflower seed oil", "Oat extract", "Camellia oil"]
-      },
-      {
-        name: "Prism Blush Stick",
-        category: "Makeup",
-        price: 24,
-        rating: 4.7,
-        image: "https://images.unsplash.com/photo-1525408612212-8c00be98828e?auto=format&fit=crop&w=900&q=80",
-        description: "Cream blush stick with buildable color and a natural satin glow.",
-        size: "8 g",
-        benefits: ["Easy blend", "Buildable intensity", "Travel friendly"],
-        ingredients: ["Shea butter", "Squalane", "Rosehip oil"]
-      },
-      {
-        name: "Starline Brow Fix",
-        category: "Eyes",
-        price: 17,
-        rating: 4.4,
-        image: "https://images.unsplash.com/photo-1596755389378-c31d21fd1273?auto=format&fit=crop&w=900&q=80",
-        description: "Clear brow gel that shapes and lifts each hair for a clean laminated look.",
-        size: "7 ml",
-        benefits: ["Strong hold", "No crunchy feel", "Natural finish"],
-        ingredients: ["Aloe vera", "Castor oil", "Film formers"]
-      }
-    ];
-
-    // DOM references: navigation, cart, modals, and product list containers.
-    const categories = ["All", ...new Set(products.map((item) => item.category))];
-    const chipsWrap = document.getElementById("categoryChips");
-    const productGrid = document.getElementById("productGrid");
-    const cartButton = document.getElementById("cartButton");
-    const cartCountEl = document.getElementById("cartCount");
-    const cartOverlay = document.getElementById("cartOverlay");
-    const cartDrawer = document.getElementById("cartDrawer");
-    const cartItemsWrap = document.getElementById("cartItemsWrap");
-    const cartSubtotal = document.getElementById("cartSubtotal");
-    const cartMessage = document.getElementById("cartMessage");
-    const cartCloseBtn = document.getElementById("cartCloseBtn");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-    const clearCartBtn = document.getElementById("clearCartBtn");
-    const themeToggleBtn = document.getElementById("themeToggleBtn");
-    const menuToggleBtn = document.getElementById("menuToggleBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-    const modal = document.getElementById("quickViewModal");
-    const modalImage = document.getElementById("modalImage");
-    const modalCategory = document.getElementById("modalCategory");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalDescription = document.getElementById("modalDescription");
-    const modalRating = document.getElementById("modalRating");
-    const modalSize = document.getElementById("modalSize");
-    const modalBenefits = document.getElementById("modalBenefits");
-    const modalIngredients = document.getElementById("modalIngredients");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalAddBtn = document.getElementById("modalAddBtn");
-    const modalCloseBtn = document.getElementById("modalCloseBtn");
-    let revealObserver = null;
-
-    // Runtime state used to track filters, modal selection, and cart contents.
-    let activeCategory = "All";
-    let selectedProduct = null;
-    let cartItems = loadJSON(CART_KEY, []);
-
-    // Safely parse persisted JSON values with fallback defaults.
-    function loadJSON(key, fallback) {
-      try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : fallback;
-      } catch (error) {
-        return fallback;
-      }
-    }
-
-    // Persist application state in localStorage.
-    function saveJSON(key, value) {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-
-    // Prevent background scrolling when overlays are visible.
-    function syncBodyLock() {
-      const shouldLock = modal.classList.contains("show") || cartOverlay.classList.contains("show");
-      document.body.classList.toggle("modal-open", shouldLock);
-    }
-
-    // Apply theme token class and keep control labels in sync.
-    function applyTheme(theme) {
-      const isLight = theme === "light";
-      document.body.classList.toggle("light-theme", isLight);
-      themeToggleBtn.textContent = isLight ? "Dark Mode" : "Light Mode";
-      themeToggleBtn.setAttribute("aria-pressed", String(isLight));
-    }
-
-    // Initialize theme from user preference, with system fallback.
-    function initTheme() {
-      const storedTheme = localStorage.getItem("luna-theme");
-      if (storedTheme === "light" || storedTheme === "dark") {
-        applyTheme(storedTheme);
-        return;
-      }
-      const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-      applyTheme(prefersLight ? "light" : "dark");
-    }
-
-    // Collapse the mobile navigation menu and reset toggle state.
-    function closeMobileMenu() {
-      mobileMenu.classList.remove("show");
-      menuToggleBtn.classList.remove("open");
-      menuToggleBtn.setAttribute("aria-expanded", "false");
-    }
-
-    // Update the header cart badge to reflect total unit count.
-    function updateCartBadge() {
-      const totalUnits = cartItems.reduce((sum, item) => sum + item.qty, 0);
-      cartCountEl.textContent = String(totalUnits);
-    }
-
-    // Add a catalog product to cart and persist the updated state.
-    function addToCart(product) {
-      const found = cartItems.find((item) => item.name === product.name);
-      if (found) {
-        found.qty += 1;
-      } else {
-        cartItems.push({ name: product.name, price: product.price, category: product.category, qty: 1 });
-      }
-      saveJSON(CART_KEY, cartItems);
-      updateCartBadge();
-      renderCart();
-    }
-
-    // Render cart line items, quantity controls, and subtotal.
-    function renderCart() {
-      if (!cartItems.length) {
-        cartItemsWrap.innerHTML = '<div class="empty-cart">Your cart is empty. Add products from the catalog.</div>';
-        cartSubtotal.textContent = "$0.00";
-        return;
+      // Safely parse persisted JSON values with fallback defaults.
+      function loadJSON(key, fallback) {
+        try {
+          const value = localStorage.getItem(key);
+          return value ? JSON.parse(value) : fallback;
+        } catch (error) {
+          return fallback;
+        }
       }
 
-      cartItemsWrap.innerHTML = cartItems
-        .map(
-          (item) => `
+      // Persist application state in localStorage.
+      function saveJSON(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+      }
+
+      // Prevent background scrolling when overlays are visible.
+      function syncBodyLock() {
+        const shouldLock =
+          modal.classList.contains("show") ||
+          cartOverlay.classList.contains("show");
+        document.body.classList.toggle("modal-open", shouldLock);
+      }
+
+      // Apply theme token class and keep control labels in sync.
+      function applyTheme(theme) {
+        const isLight = theme === "light";
+        document.body.classList.toggle("light-theme", isLight);
+        const nextLabel = isLight ? "Dark Mode" : "Light Mode";
+        themeToggleBtn.textContent = nextLabel;
+        themeToggleBtn.setAttribute("aria-pressed", String(isLight));
+        if (themeToggleBtnMobile) {
+          themeToggleBtnMobile.textContent = nextLabel;
+          themeToggleBtnMobile.setAttribute("aria-pressed", String(isLight));
+        }
+      }
+
+      // Initialize theme from user preference, with system fallback.
+      function initTheme() {
+        const storedTheme = localStorage.getItem("luna-theme");
+        if (storedTheme === "light" || storedTheme === "dark") {
+          applyTheme(storedTheme);
+          return;
+        }
+        const prefersLight =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: light)").matches;
+        applyTheme(prefersLight ? "light" : "dark");
+      }
+
+      // Collapse the mobile navigation menu and reset toggle state.
+      function closeMobileMenu() {
+        mobileMenu.classList.remove("show");
+        menuToggleBtn.classList.remove("open");
+        menuToggleBtn.setAttribute("aria-expanded", "false");
+      }
+
+      // Update the header cart badge to reflect total unit count.
+      function updateCartBadge() {
+        const totalUnits = cartItems.reduce((sum, item) => sum + item.qty, 0);
+        cartCountEl.textContent = String(totalUnits);
+        if (cartCountMobileEl) {
+          cartCountMobileEl.textContent = String(totalUnits);
+        }
+      }
+
+      // Add a catalog product to cart and persist the updated state.
+      function addToCart(product) {
+        const found = cartItems.find((item) => item.name === product.name);
+        if (found) {
+          found.qty += 1;
+        } else {
+          cartItems.push({
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            qty: 1,
+          });
+        }
+        saveJSON(CART_KEY, cartItems);
+        updateCartBadge();
+        renderCart();
+      }
+
+      // Render cart line items, quantity controls, and subtotal.
+      function renderCart() {
+        if (!cartItems.length) {
+          cartItemsWrap.innerHTML =
+            '<div class="empty-cart">Your cart is empty. Add products from the catalog.</div>';
+          cartSubtotal.textContent = "$0.00";
+          return;
+        }
+
+        cartItemsWrap.innerHTML = cartItems
+          .map(
+            (item) => `
             <article class="cart-item" data-name="${item.name}">
               <div class="cart-item-top">
                 <strong>${item.name}</strong>
@@ -1455,125 +1726,134 @@
                 </div>
               </div>
               <button class="remove-link" data-action="remove" data-name="${item.name}" type="button">Remove</button>
-            </article>`
-        )
-        .join("");
+            </article>`,
+          )
+          .join("");
 
-      const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-      cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-    }
-
-    // Open cart drawer and refresh its latest content.
-    function openCart() {
-      cartOverlay.classList.add("show");
-      cartOverlay.setAttribute("aria-hidden", "false");
-      cartDrawer.classList.add("show");
-      syncBodyLock();
-      renderCart();
-      cartMessage.textContent = "Cart data is synchronized with your account profile.";
-    }
-
-    // Close cart drawer and restore page scroll when no overlays remain.
-    function closeCart() {
-      cartOverlay.classList.remove("show");
-      cartOverlay.setAttribute("aria-hidden", "true");
-      cartDrawer.classList.remove("show");
-      syncBodyLock();
-    }
-
-    // Create a new order record from current cart and clear cart afterward.
-    function saveOrder() {
-      if (!cartItems.length) {
-        cartMessage.textContent = "Your cart is empty.";
-        return;
+        const subtotal = cartItems.reduce(
+          (sum, item) => sum + item.price * item.qty,
+          0,
+        );
+        cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
       }
 
-      const profile = loadJSON(PROFILE_KEY, {});
-      const orders = loadJSON(ORDERS_KEY, []);
-      const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-      const order = {
-        id: `LUNA-${Date.now().toString().slice(-8)}`,
-        date: new Date().toISOString(),
-        status: "Processing",
-        customer: profile.fullName || "Account Holder",
-        total,
-        items: cartItems.map((item) => ({ ...item }))
-      };
-
-      orders.unshift(order);
-      saveJSON(ORDERS_KEY, orders);
-      cartItems = [];
-      saveJSON(CART_KEY, cartItems);
-      updateCartBadge();
-      renderCart();
-      cartMessage.textContent = `Order ${order.id} created successfully. Full history is available in Account.`;
-    }
-
-    // Initialize observer-driven reveal animations for static and dynamic content blocks.
-    function initScrollReveal() {
-      if (!("IntersectionObserver" in window)) {
-        document.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-visible"));
-        return;
+      // Open cart drawer and refresh its latest content.
+      function openCart() {
+        cartOverlay.classList.add("show");
+        cartOverlay.setAttribute("aria-hidden", "false");
+        cartDrawer.classList.add("show");
+        syncBodyLock();
+        renderCart();
+        cartMessage.textContent =
+          "Cart data is synchronized with your account profile.";
       }
 
-      revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) {
-              return;
-            }
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          });
-        },
-        { threshold: 0.14, rootMargin: "0px 0px -8% 0px" }
-      );
-
-      document.querySelectorAll("[data-reveal]").forEach((el) => {
-        revealObserver.observe(el);
-      });
-    }
-
-    // Register newly rendered elements for reveal animations.
-    function registerRevealElements(elements) {
-      if (!elements.length) {
-        return;
+      // Close cart drawer and restore page scroll when no overlays remain.
+      function closeCart() {
+        cartOverlay.classList.remove("show");
+        cartOverlay.setAttribute("aria-hidden", "true");
+        cartDrawer.classList.remove("show");
+        syncBodyLock();
       }
-      if (!revealObserver) {
-        elements.forEach((el) => el.classList.add("is-visible"));
-        return;
+
+      // Create a new order record from current cart and clear cart afterward.
+      function saveOrder() {
+        if (!cartItems.length) {
+          cartMessage.textContent = "Your cart is empty.";
+          return;
+        }
+
+        const profile = loadJSON(PROFILE_KEY, {});
+        const orders = loadJSON(ORDERS_KEY, []);
+        const total = cartItems.reduce(
+          (sum, item) => sum + item.price * item.qty,
+          0,
+        );
+        const order = {
+          id: `LUNA-${Date.now().toString().slice(-8)}`,
+          date: new Date().toISOString(),
+          status: "Processing",
+          customer: profile.fullName || "Account Holder",
+          total,
+          items: cartItems.map((item) => ({ ...item })),
+        };
+
+        orders.unshift(order);
+        saveJSON(ORDERS_KEY, orders);
+        cartItems = [];
+        saveJSON(CART_KEY, cartItems);
+        updateCartBadge();
+        renderCart();
+        cartMessage.textContent = `Order ${order.id} created successfully. Full history is available in Account.`;
       }
-      elements.forEach((el) => revealObserver.observe(el));
-    }
 
-    // Render category filter chips and bind selection handlers.
-    function renderChips() {
-      chipsWrap.innerHTML = categories
-        .map(
-          (cat) =>
-            `<button class="chip ${cat === activeCategory ? "active" : ""}" data-category="${cat}">${cat}</button>`
-        )
-        .join("");
+      // Initialize observer-driven reveal animations for static and dynamic content blocks.
+      function initScrollReveal() {
+        if (!("IntersectionObserver" in window)) {
+          document
+            .querySelectorAll("[data-reveal]")
+            .forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
 
-      chipsWrap.querySelectorAll(".chip").forEach((chip) => {
-        chip.addEventListener("click", () => {
-          activeCategory = chip.dataset.category;
-          renderChips();
-          renderProducts();
+        revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) {
+                return;
+              }
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.14, rootMargin: "0px 0px -8% 0px" },
+        );
+
+        document.querySelectorAll("[data-reveal]").forEach((el) => {
+          revealObserver.observe(el);
         });
-      });
-    }
+      }
 
-    // Render filtered product cards and bind action handlers.
-    function renderProducts() {
-      const filtered =
-        activeCategory === "All"
-          ? products
-          : products.filter((item) => item.category === activeCategory);
+      // Register newly rendered elements for reveal animations.
+      function registerRevealElements(elements) {
+        if (!elements.length) {
+          return;
+        }
+        if (!revealObserver) {
+          elements.forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
+        elements.forEach((el) => revealObserver.observe(el));
+      }
 
-      productGrid.innerHTML = filtered
-        .map(
-          (product, idx) => `
+      // Render category filter chips and bind selection handlers.
+      function renderChips() {
+        chipsWrap.innerHTML = categories
+          .map(
+            (cat) =>
+              `<button class="chip ${cat === activeCategory ? "active" : ""}" data-category="${cat}">${cat}</button>`,
+          )
+          .join("");
+
+        chipsWrap.querySelectorAll(".chip").forEach((chip) => {
+          chip.addEventListener("click", () => {
+            activeCategory = chip.dataset.category;
+            renderChips();
+            renderProducts();
+          });
+        });
+      }
+
+      // Render filtered product cards and bind action handlers.
+      function renderProducts() {
+        const filtered =
+          activeCategory === "All"
+            ? products
+            : products.filter((item) => item.category === activeCategory);
+
+        productGrid.innerHTML = filtered
+          .map(
+            (product, idx) => `
             <article class="product-card reveal-item" data-reveal style="--reveal-delay:${idx * 70}ms;">
               <img src="${product.image}" alt="${product.name}" loading="lazy" />
               <div class="product-body">
@@ -1588,212 +1868,231 @@
                   <button class="add-btn" data-product="${product.name}">Add to Cart</button>
                 </div>
               </div>
-            </article>`
-        )
-        .join("");
+            </article>`,
+          )
+          .join("");
 
-      registerRevealElements([...productGrid.querySelectorAll("[data-reveal]")]);
+        registerRevealElements([
+          ...productGrid.querySelectorAll("[data-reveal]"),
+        ]);
 
-      productGrid.querySelectorAll(".add-btn").forEach((button) => {
-        button.addEventListener("click", () => {
-          const productName = button.dataset.product;
-          const product = products.find((item) => item.name === productName);
-          if (!product) {
-            return;
-          }
-          addToCart(product);
-          button.textContent = "Added to Cart";
-          setTimeout(() => {
-            button.textContent = "Add to Cart";
-          }, 700);
+        productGrid.querySelectorAll(".add-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            const productName = button.dataset.product;
+            const product = products.find((item) => item.name === productName);
+            if (!product) {
+              return;
+            }
+            addToCart(product);
+            button.textContent = "Added to Cart";
+            setTimeout(() => {
+              button.textContent = "Add to Cart";
+            }, 700);
+          });
         });
-      });
 
-      productGrid.querySelectorAll(".view-btn").forEach((button) => {
-        button.addEventListener("click", () => {
-          const productName = button.dataset.view;
-          const product = products.find((item) => item.name === productName);
-          if (product) {
-            openModal(product);
-          }
+        productGrid.querySelectorAll(".view-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            const productName = button.dataset.view;
+            const product = products.find((item) => item.name === productName);
+            if (product) {
+              openModal(product);
+            }
+          });
         });
-      });
-    }
+      }
 
-    // Open product details modal with selected product data.
-    function openModal(product) {
-      selectedProduct = product;
-      modalImage.src = product.image;
-      modalImage.alt = product.name;
-      modalCategory.textContent = product.category;
-      modalTitle.textContent = product.name;
-      modalDescription.textContent = product.description;
-      modalRating.textContent = `Rating ${product.rating}`;
-      modalSize.textContent = `Size ${product.size}`;
-      modalPrice.textContent = `$${product.price.toFixed(2)}`;
-      modalBenefits.innerHTML = product.benefits.map((item) => `<p>${item}</p>`).join("");
-      modalIngredients.innerHTML = product.ingredients.map((item) => `<p>${item}</p>`).join("");
-      modal.classList.add("show");
-      modal.setAttribute("aria-hidden", "false");
-      syncBodyLock();
-      modalCloseBtn.focus();
-    }
+      // Open product details modal with selected product data.
+      function openModal(product) {
+        selectedProduct = product;
+        modalImage.src = product.image;
+        modalImage.alt = product.name;
+        modalCategory.textContent = product.category;
+        modalTitle.textContent = product.name;
+        modalDescription.textContent = product.description;
+        modalRating.textContent = `Rating ${product.rating}`;
+        modalSize.textContent = `Size ${product.size}`;
+        modalPrice.textContent = `$${product.price.toFixed(2)}`;
+        modalBenefits.innerHTML = product.benefits
+          .map((item) => `<p>${item}</p>`)
+          .join("");
+        modalIngredients.innerHTML = product.ingredients
+          .map((item) => `<p>${item}</p>`)
+          .join("");
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+        syncBodyLock();
+        modalCloseBtn.focus();
+      }
 
-    // Close product details modal.
-    function closeModal() {
-      modal.classList.remove("show");
-      modal.setAttribute("aria-hidden", "true");
-      syncBodyLock();
-    }
+      // Close product details modal.
+      function closeModal() {
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+        syncBodyLock();
+      }
 
-    // Start a live countdown timer for promotional placement.
-    function startCountdown(hours = 8) {
-      const target = Date.now() + hours * 60 * 60 * 1000;
-      const box = document.getElementById("countdown");
+      // Start a live countdown timer for promotional placement.
+      function startCountdown(hours = 8) {
+        const target = Date.now() + hours * 60 * 60 * 1000;
+        const box = document.getElementById("countdown");
 
-      function tick() {
-        const diff = Math.max(target - Date.now(), 0);
-        const h = Math.floor(diff / (1000 * 60 * 60));
-        const m = Math.floor((diff / (1000 * 60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
+        function tick() {
+          const diff = Math.max(target - Date.now(), 0);
+          const h = Math.floor(diff / (1000 * 60 * 60));
+          const m = Math.floor((diff / (1000 * 60)) % 60);
+          const s = Math.floor((diff / 1000) % 60);
 
-        box.innerHTML = `
+          box.innerHTML = `
           <div class="time-pill"><b>${String(h).padStart(2, "0")}</b><span>Hours</span></div>
           <div class="time-pill"><b>${String(m).padStart(2, "0")}</b><span>Minutes</span></div>
           <div class="time-pill"><b>${String(s).padStart(2, "0")}</b><span>Seconds</span></div>`;
 
-        if (diff <= 0) {
-          clearInterval(timer);
+          if (diff <= 0) {
+            clearInterval(timer);
+          }
         }
+
+        tick();
+        const timer = setInterval(tick, 1000);
       }
 
-      tick();
-      const timer = setInterval(tick, 1000);
-    }
-
-    // Handle newsletter form submission and update inline confirmation.
-    function subscribe(event) {
-      event.preventDefault();
-      const emailInput = document.getElementById("emailInput");
-      const message = document.getElementById("newsletterMessage");
-      message.textContent = `Subscription confirmed for ${emailInput.value}`;
-      emailInput.value = "";
-      return false;
-    }
-
-    // Application bootstrap sequence.
-    renderChips();
-    initScrollReveal();
-    renderProducts();
-    renderCart();
-    updateCartBadge();
-    initTheme();
-    startCountdown(9);
-
-    // Cart interaction events.
-    cartButton.addEventListener("click", openCart);
-    cartCloseBtn.addEventListener("click", closeCart);
-    cartOverlay.addEventListener("click", (event) => {
-      if (event.target === cartOverlay) {
-        closeCart();
-      }
-    });
-
-    // Delegate cart item quantity and removal actions.
-    cartItemsWrap.addEventListener("click", (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) {
-        return;
-      }
-      const action = target.dataset.action;
-      const name = target.dataset.name;
-      if (!action || !name) {
-        return;
-      }
-      const item = cartItems.find((entry) => entry.name === name);
-      if (!item) {
-        return;
+      // Handle newsletter form submission and update inline confirmation.
+      function subscribe(event) {
+        event.preventDefault();
+        const emailInput = document.getElementById("emailInput");
+        const message = document.getElementById("newsletterMessage");
+        message.textContent = `Subscription confirmed for ${emailInput.value}`;
+        emailInput.value = "";
+        return false;
       }
 
-      if (action === "increase") {
-        item.qty += 1;
-      }
-      if (action === "decrease") {
-        item.qty = Math.max(1, item.qty - 1);
-      }
-      if (action === "remove") {
-        cartItems = cartItems.filter((entry) => entry.name !== name);
-      }
-
-      saveJSON(CART_KEY, cartItems);
-      updateCartBadge();
+      // Application bootstrap sequence.
+      renderChips();
+      initScrollReveal();
+      renderProducts();
       renderCart();
-    });
-
-    // Checkout and cart maintenance actions.
-    checkoutBtn.addEventListener("click", saveOrder);
-    clearCartBtn.addEventListener("click", () => {
-      cartItems = [];
-      saveJSON(CART_KEY, cartItems);
       updateCartBadge();
-      renderCart();
-      cartMessage.textContent = "Cart has been cleared.";
-    });
+      initTheme();
+      startCountdown(9);
 
-    // Product details modal events.
-    modalCloseBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        closeModal();
+      // Cart interaction events.
+      cartButton.addEventListener("click", openCart);
+      if (cartButtonMobile) {
+        cartButtonMobile.addEventListener("click", () => {
+          closeMobileMenu();
+          openCart();
+        });
       }
-    });
-
-    // Global keyboard close handling for modal overlays.
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        if (modal.classList.contains("show")) {
-          closeModal();
-        }
-        if (cartOverlay.classList.contains("show")) {
+      cartCloseBtn.addEventListener("click", closeCart);
+      cartOverlay.addEventListener("click", (event) => {
+        if (event.target === cartOverlay) {
           closeCart();
         }
+      });
+
+      // Delegate cart item quantity and removal actions.
+      cartItemsWrap.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
+        const action = target.dataset.action;
+        const name = target.dataset.name;
+        if (!action || !name) {
+          return;
+        }
+        const item = cartItems.find((entry) => entry.name === name);
+        if (!item) {
+          return;
+        }
+
+        if (action === "increase") {
+          item.qty += 1;
+        }
+        if (action === "decrease") {
+          item.qty = Math.max(1, item.qty - 1);
+        }
+        if (action === "remove") {
+          cartItems = cartItems.filter((entry) => entry.name !== name);
+        }
+
+        saveJSON(CART_KEY, cartItems);
+        updateCartBadge();
+        renderCart();
+      });
+
+      // Checkout and cart maintenance actions.
+      checkoutBtn.addEventListener("click", saveOrder);
+      clearCartBtn.addEventListener("click", () => {
+        cartItems = [];
+        saveJSON(CART_KEY, cartItems);
+        updateCartBadge();
+        renderCart();
+        cartMessage.textContent = "Cart has been cleared.";
+      });
+
+      // Product details modal events.
+      modalCloseBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Global keyboard close handling for modal overlays.
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          if (modal.classList.contains("show")) {
+            closeModal();
+          }
+          if (cartOverlay.classList.contains("show")) {
+            closeCart();
+          }
+        }
+      });
+
+      modalAddBtn.addEventListener("click", () => {
+        if (!selectedProduct) {
+          return;
+        }
+        addToCart(selectedProduct);
+        modalAddBtn.textContent = "Added to Cart";
+        setTimeout(() => {
+          modalAddBtn.textContent = "Add To Cart";
+        }, 700);
+      });
+
+      // Theme preference toggle.
+      function toggleTheme() {
+        const nextTheme = document.body.classList.contains("light-theme")
+          ? "dark"
+          : "light";
+        applyTheme(nextTheme);
+        localStorage.setItem("luna-theme", nextTheme);
       }
-    });
 
-    modalAddBtn.addEventListener("click", () => {
-      if (!selectedProduct) {
-        return;
+      themeToggleBtn.addEventListener("click", toggleTheme);
+      if (themeToggleBtnMobile) {
+        themeToggleBtnMobile.addEventListener("click", toggleTheme);
       }
-      addToCart(selectedProduct);
-      modalAddBtn.textContent = "Added to Cart";
-      setTimeout(() => {
-        modalAddBtn.textContent = "Add To Cart";
-      }, 700);
-    });
 
-    // Theme preference toggle.
-    themeToggleBtn.addEventListener("click", () => {
-      const nextTheme = document.body.classList.contains("light-theme") ? "dark" : "light";
-      applyTheme(nextTheme);
-      localStorage.setItem("luna-theme", nextTheme);
-    });
+      // Mobile navigation menu toggle and lifecycle handlers.
+      menuToggleBtn.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.toggle("show");
+        menuToggleBtn.classList.toggle("open", isOpen);
+        menuToggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
 
-    // Mobile navigation menu toggle and lifecycle handlers.
-    menuToggleBtn.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.toggle("show");
-      menuToggleBtn.classList.toggle("open", isOpen);
-      menuToggleBtn.setAttribute("aria-expanded", String(isOpen));
-    });
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+      });
 
-    mobileMenu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMobileMenu);
-    });
-
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 640) {
-        closeMobileMenu();
-      }
-    });
-  </script>
-</body>
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 640) {
+          closeMobileMenu();
+        }
+      });
+    </script>
+  </body>
 </html>
