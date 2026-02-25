@@ -1,0 +1,48 @@
+# LUNA COSMETICS
+
+Modern beauty storefront with a curated product catalog, featured ritual sets, and customer testimonials. The site is designed as a single-page experience with a product grid, quick-view modal, cart drawer, theme toggle, and responsive layout.
+
+## Features
+- Hero with promotional countdown
+- Dynamic product catalog with filters and quick-view modal
+- Cart drawer with persistent local storage
+- Featured ritual sets with trust badges
+- Customer testimonials and ratings summary
+- Light/dark theme toggle with saved preference
+- Newsletter signup form
+- Responsive layout with mobile navigation
+
+## Tech Stack
+- HTML5
+- CSS3 (custom properties, responsive grid)
+- Vanilla JavaScript
+- LocalStorage for cart, orders, and theme state
+
+## Project Structure
+- `index.html` Main storefront page
+- `style.css` Global styles and layout
+- `index.js` Storefront interactions, cart logic, and UI state
+- `profile.html` Customer profile page
+- `profile.js` Profile interactions and order history
+- `profile.css` Profile page styles
+
+## Getting Started
+1. Open `index.html` in a browser.
+2. Browse products, open quick-view details, and add items to cart.
+3. Use the theme toggle to switch between light and dark modes.
+4. Visit the account page via the profile icon in the header.
+
+## Data Persistence
+The site uses `localStorage` to persist:
+- Cart items (`luna-cart`)
+- Orders (`luna-orders`)
+- Profile data (`luna-profile`)
+- Theme preference (`luna-theme`)
+
+## Customization
+- Update product data in `index.js` (the `products` array).
+- Replace hero and featured images in `style.css`.
+- Edit copy and sections directly in `index.html`.
+
+## License
+Internal project for LUNA COSMETICS. All rights reserved.
